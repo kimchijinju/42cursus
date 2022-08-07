@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:04:04 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/08/07 18:06:22 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/08/07 18:59:45 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static size_t	has_newline(char *buf)
 {
@@ -75,29 +75,55 @@ static char	*new_next_line(char **backup, int newline_prev, int backup_len)
 	return (str);
 }
 
+t_list	*find(t_list **head, int fd)
+{
+	t_list	*node;
+	t_list	*add;
+
+	node = *head;
+	if (!node)
+	{
+		node->next = NULL;
+		node->backup = NULL;
+		node->fd = fd;
+		return (node);
+	}
+	while (node)
+	{
+		if (node->fd == fd)
+			return (node);
+		node = node->next;
+	}
+	add->fd = fd;
+	add->backup = NULL;
+	add->next = NULL;
+	node->next = node;
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*backup;
-	char		*str;
-	size_t		newline_prev;
-	size_t		backup_len;
+	static t_list	*head;
+	t_list			*node;
+	char			*ret;
+	size_t			newline_prev;
+	size_t			backup_len;
 
-	str = NULL;
+	node = find(&head, fd);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	backup = read_target(fd, backup);
-	if (!backup)
+	node->backup = read_target(fd, node->backup);
+	if (!node->backup)
 		return (NULL);
-	backup_len = ft_strlen(backup);
-	newline_prev = has_newline(backup);
+	backup_len = ft_strlen(node->backup);
+	newline_prev = has_newline(node->backup);
 	if (newline_prev)
-		return (new_next_line(&backup, newline_prev, backup_len));
-	if (*backup)
+		return (new_next_line(&(node->backup), newline_prev, backup_len));
+	if (!*(node->backup))
 	{
-		str = malloc(backup_len + 1);
-		str = ft_memmove(str, backup, backup_len + 1);
+		ret = malloc(backup_len + 1);
+		ret = ft_memmove(ret, node->backup, backup_len + 1);
 	}
-	free(backup);
-	backup = 0;
-	return (str);
+	free(node->backup);
+	node->backup = 0;
+	return (ret);
 }
