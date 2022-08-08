@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:04:04 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/08/07 18:59:45 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/08/08 12:06:26 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static char	*read_target(int fd, char *backup)
 	char	*temp;
 	ssize_t	rd;
 
+	buf[0] = '\0';
 	while (!has_newline(buf))
 	{	
 		rd = read(fd, buf, BUFFER_SIZE);
@@ -47,10 +48,9 @@ static char	*read_target(int fd, char *backup)
 		if (!backup)
 			backup = ft_strdup(buf);
 		else
-		{
 			backup = ft_strjoin(backup, buf);
-			free(temp);
-		}
+		if (!backup)
+			return (NULL);
 	}
 	return (backup);
 }
@@ -81,23 +81,25 @@ t_list	*find(t_list **head, int fd)
 	t_list	*add;
 
 	node = *head;
-	if (!node)
-	{
-		node->next = NULL;
-		node->backup = NULL;
-		node->fd = fd;
-		return (node);
-	}
 	while (node)
 	{
 		if (node->fd == fd)
 			return (node);
+		if (!node->next)
+			break ;
 		node = node->next;
 	}
+	add = malloc(sizeof(t_list));
+	if (!add)
+		return (NULL);
 	add->fd = fd;
 	add->backup = NULL;
 	add->next = NULL;
-	node->next = node;
+	if (!node)
+		*head = add;
+	else
+		node->next = add;
+	return (add);
 }
 
 char	*get_next_line(int fd)
@@ -105,25 +107,26 @@ char	*get_next_line(int fd)
 	static t_list	*head;
 	t_list			*node;
 	char			*ret;
-	size_t			newline_prev;
 	size_t			backup_len;
 
+	ret = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+		return (ft_list_remove_if(&head, fd));
 	node = find(&head, fd);
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (!node)
 		return (NULL);
 	node->backup = read_target(fd, node->backup);
 	if (!node->backup)
-		return (NULL);
+		return (ft_list_remove_if(&head, fd));
 	backup_len = ft_strlen(node->backup);
-	newline_prev = has_newline(node->backup);
-	if (newline_prev)
-		return (new_next_line(&(node->backup), newline_prev, backup_len));
-	if (!*(node->backup))
+	if (has_newline(node->backup))
+		return (new_next_line(&(node->backup),
+				has_newline(node->backup), backup_len));
+	if (*node->backup)
 	{
 		ret = malloc(backup_len + 1);
 		ret = ft_memmove(ret, node->backup, backup_len + 1);
 	}
-	free(node->backup);
-	node->backup = 0;
+	ft_list_remove_if(&head, fd);
 	return (ret);
 }

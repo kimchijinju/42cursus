@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_util_bonus.c                         :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:04:39 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/08/07 18:56:58 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/08/08 12:06:08 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_strdup(const char *s1)
 	return (str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	size_t	s1_len;
 	size_t	s2_len;
@@ -60,6 +60,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (*s2)
 		str[i++] = *s2++;
 	str[i] = '\0';
+	free(s1 - s1_len);
 	return (str);
 }
 
@@ -87,4 +88,31 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		}
 	}
 	return (dst);
+}
+
+char	*ft_list_remove_if(t_list **begin_list, int fd)
+{
+	t_list	*tmp;
+	t_list	*i;
+
+	if (*begin_list && (*begin_list)->fd == fd)
+	{
+		tmp = *begin_list;
+		*begin_list = (*begin_list)->next;
+		free(tmp->backup);
+		free(tmp);
+	}
+	i = *begin_list;
+	while (i && i->next)
+	{
+		if (i->next->fd == fd)
+		{
+			tmp = i->next;
+			i->next = tmp->next;
+			free(tmp->backup);
+			free(tmp);
+		}
+		i = i->next;
+	}
+	return (NULL);
 }

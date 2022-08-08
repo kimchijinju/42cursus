@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:04:04 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/08/07 18:06:22 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/08/08 12:00:33 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static char	*read_target(int fd, char *backup)
 	char	*temp;
 	ssize_t	rd;
 
+	buf[0] = '\0';
 	while (!has_newline(buf))
 	{	
 		rd = read(fd, buf, BUFFER_SIZE);
@@ -47,10 +48,9 @@ static char	*read_target(int fd, char *backup)
 		if (!backup)
 			backup = ft_strdup(buf);
 		else
-		{
 			backup = ft_strjoin(backup, buf);
-			free(temp);
-		}
+		if (!backup)
+			return (NULL);
 	}
 	return (backup);
 }
@@ -75,29 +75,58 @@ static char	*new_next_line(char **backup, int newline_prev, int backup_len)
 	return (str);
 }
 
+t_list	*find(t_list **head, int fd)
+{
+	t_list	*node;
+	t_list	*add;
+
+	node = *head;
+	while (node)
+	{
+		if (node->fd == fd)
+			return (node);
+		if (!node->next)
+			break ;
+		node = node->next;
+	}
+	add = malloc(sizeof(t_list));
+	if (!add)
+		return (NULL);
+	add->fd = fd;
+	add->backup = NULL;
+	add->next = NULL;
+	if (!node)
+		*head = add;
+	else
+		node->next = add;
+	return (add);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*backup;
-	char		*str;
-	size_t		newline_prev;
-	size_t		backup_len;
+	static t_list	*head;
+	t_list			*node;
+	char			*ret;
+	size_t			backup_len;
 
-	str = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	ret = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
+		return (ft_list_remove_if(&head, fd));
+	node = find(&head, fd);
+	if (!node)
 		return (NULL);
-	backup = read_target(fd, backup);
-	if (!backup)
-		return (NULL);
-	backup_len = ft_strlen(backup);
-	newline_prev = has_newline(backup);
-	if (newline_prev)
-		return (new_next_line(&backup, newline_prev, backup_len));
-	if (*backup)
+	node->backup = read_target(fd, node->backup);
+	if (!node->backup)
+		return (ft_list_remove_if(&head, fd));
+	backup_len = ft_strlen(node->backup);
+	if (has_newline(node->backup))
+		return (new_next_line(&(node->backup),
+				has_newline(node->backup), backup_len));
+	if (*node->backup)
 	{
-		str = malloc(backup_len + 1);
-		str = ft_memmove(str, backup, backup_len + 1);
+		ret = malloc(backup_len + 1);
+		ret = ft_memmove(ret, node->backup, backup_len + 1);
 	}
-	free(backup);
-	backup = 0;
-	return (str);
+	ft_list_remove_if(&head, fd);
+	return (ret);
 }
