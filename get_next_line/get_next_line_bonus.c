@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:04:04 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/08/08 12:06:26 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/08/08 13:44:14 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ static char	*read_target(int fd, char *backup)
 		if (rd == 0)
 			return (backup);
 		if (rd < 0)
-		{
-			free(backup);
 			return (NULL);
-		}
 		buf[rd] = '\0';
 		temp = backup;
 		if (!backup)
@@ -55,18 +52,19 @@ static char	*read_target(int fd, char *backup)
 	return (backup);
 }
 
-static char	*new_next_line(char **backup, int newline_prev, int backup_len)
+static char	*new_next_line(char **backup, t_list **head, int fd)
 {
 	char	*str;
 	char	*temp;
+	int		newline_prev;
+	int		backup_len;
 
 	temp = *backup;
+	backup_len = ft_strlen(temp);
+	newline_prev = has_newline(temp);
 	str = malloc(newline_prev + 1);
 	if (!str)
-	{
-		free(backup);
-		return (0);
-	}
+		return (ft_list_remove_if(head, fd));
 	str = ft_memmove(str, temp, newline_prev);
 	str[newline_prev] = '\0';
 	temp = ft_memmove(temp, temp + newline_prev,
@@ -75,7 +73,7 @@ static char	*new_next_line(char **backup, int newline_prev, int backup_len)
 	return (str);
 }
 
-t_list	*find(t_list **head, int fd)
+static t_list	*find(t_list **head, int fd)
 {
 	t_list	*node;
 	t_list	*add;
@@ -120,8 +118,7 @@ char	*get_next_line(int fd)
 		return (ft_list_remove_if(&head, fd));
 	backup_len = ft_strlen(node->backup);
 	if (has_newline(node->backup))
-		return (new_next_line(&(node->backup),
-				has_newline(node->backup), backup_len));
+		return (new_next_line(&(node->backup), &head, fd));
 	if (*node->backup)
 	{
 		ret = malloc(backup_len + 1);
