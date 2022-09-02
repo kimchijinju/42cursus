@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:04:04 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/08/08 13:45:35 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/08/08 16:29:16 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ char	*get_next_line(int fd)
 	if (*node->backup)
 	{
 		ret = malloc(backup_len + 1);
+		if(!ret)
+			break ;
 		ret = ft_memmove(ret, node->backup, backup_len + 1);
 	}
 	ft_list_remove_if(&head, fd);

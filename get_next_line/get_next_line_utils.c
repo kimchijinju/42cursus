@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:04:39 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/08/08 12:05:18 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/08/08 15:07:10 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ char	*ft_strjoin(char *s1, char const *s2)
 	s2_len = ft_strlen(s2);
 	str = malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!str)
+	{
+		free(s1);
 		return (NULL);
+	}
 	i = 0;
 	while (*s1)
 		str[i++] = *s1++;
