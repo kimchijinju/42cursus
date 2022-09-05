@@ -13,7 +13,7 @@ size_t	get_element_count(char **input)
 	return (i);
 }
 
-static t_bool	wrong_input(char *str)
+static t_bool	is_incorrect_string(char *str)
 {
 	size_t	i;
 	t_bool	sign;
@@ -29,6 +29,42 @@ static t_bool	wrong_input(char *str)
 		i++;
 	}
 	return (i == 0);
+}
+static t_bool	integer_range_out(char *str)
+{
+	long long	number;
+	int			sign;
+
+	sign = 1;
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	number = 0;
+	while (*str >= '0' && *str <= '9')
+	{
+		number *= 10;
+		number += (*str - '0');
+		str++;
+	}
+	number *= sign;
+	if (number > 2147483647 || number < -2147483648)
+		return (TRUE);
+	return (FALSE);
+}
+
+static t_bool	wrong_input(char *str)
+{
+	if (is_incorrect_string(str))
+	{
+		return (TRUE);
+	}
+	if (integer_range_out(str))
+	{
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 static t_bool	duplicate_input(int *arr, size_t arr_size)
@@ -51,13 +87,13 @@ static t_bool	duplicate_input(int *arr, size_t arr_size)
 	return (FALSE);
 }
 
-static char	**parse_input(size_t argc, char **argv)
+char	**parse_input(int argc, char **argv)
 {
-	size_t	i;
+	int		i;
 	char	*join;
 	char	*temp;
 	char	**split;
-	
+
 	join = ft_strdup("");
 	if (join == NULL)
 		return (NULL);
@@ -79,7 +115,7 @@ static char	**parse_input(size_t argc, char **argv)
 	return (split);
 }
 
-static int	*init_element(t_deque *deque, size_t arr_size, char **input)
+static t_bool	init_element(t_deque *deque, size_t arr_size, char **input)
 {
 	size_t	i;
 
@@ -87,38 +123,45 @@ static int	*init_element(t_deque *deque, size_t arr_size, char **input)
 	while(i < arr_size)
 	{
 		if (wrong_input(input[i]))
-			return (NULL);
+			return (FALSE);
 		deque->push_back(deque, ft_atoi(input[i]));
 		i++;
 	}
-	return (arr);
+	return (TRUE);
 }
 
-t_deque	*init_deque(int argc, char **argv)
+void	*free_deque(t_deque *deque)
+{
+	free(deque->arr);
+	free(deque);
+	return (NULL);
+}
+
+t_deque	*create_deque_and_fill_array(char **input, size_t element_size)
 {
 	t_deque	*deque;
-	char	**input;
-	size_t	element_size;
 
-	input = parse_input(argc, argv);
-	if (input == NULL)
+	deque = create_deque(element_size);
+	if (deque == NULL)
 		return (NULL);
-	element_size = get_element_count(input);
-	deque->create_deque(element_size);
-	if (!deque)
-		return (free_split(input, element_size));
-	//todo : 가드 구현
-	deque->arr = init_element(deque, element_size, input);
+	if (!init_element(deque, element_size, input))
+		return (free_deque(deque));
+	if (duplicate_input(deque->arr, element_size))
+		return (free_deque(deque));
+	return (deque);
+}
+
+t_bool	init_deque(t_deque **a, t_deque **b, char **input, size_t element_size)
+{
+	*a = create_deque_and_fill_array(input, element_size);
 	free_split(input, element_size);
-	if (arr == NULL)
-		return (NULL);
- 	if (duplicate_input(arr, element_size))
+	if (*a == NULL)
+		return (FALSE);
+	*b = create_deque(element_size);
+	if (*b == NULL)
 	{
-		free(arr);
-		return (NULL);
+		free_deque(*a);
+		return (FALSE);
 	}
-	for (int i = 0; i < (int) element_size; i++) {
-		printf("%d\n", arr[i]);
-	}
-	return (arr);
+	return (TRUE);
 }

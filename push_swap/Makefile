@@ -6,12 +6,12 @@
 #    By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/01 13:48:26 by hanbkim           #+#    #+#              #
-#    Updated: 2022/09/02 21:58:06 by hanbkim          ###   ########.fr        #
+#    Updated: 2022/09/05 15:40:51 by hanbkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 
 SRCS = parse.c main.c deque.c
 OBJS = $(SRCS:.c=.o)

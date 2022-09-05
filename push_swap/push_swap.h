@@ -3,6 +3,9 @@
 # include <stddef.h>
 # include "deque.h"
 
-t_deque	*init(int argc, char **argv);
-size_t	get_num_count(char **split);
+t_bool	init_deque(t_deque **a, t_deque **b, char **input, size_t element_size);
+size_t	get_element_count(char **split);
+char	**parse_input(int argc, char **argv);
+void	*free_deque(t_deque *deque);
+
 #endif
