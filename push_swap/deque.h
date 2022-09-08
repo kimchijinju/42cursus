@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:26:16 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/05 21:25:06 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/07 16:42:29 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,6 @@ int		peek_back(t_deque *self);
 t_bool	deque_empty(t_deque *self);
 t_bool	deque_full(t_deque *self);
 
+int	get_max_value(t_deque *self);
+int	get_min_value(t_deque *self);
 #endif

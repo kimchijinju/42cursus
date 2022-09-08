@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:53:02 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/05 21:25:00 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/07 16:57:36 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,44 @@ t_bool deque_full(t_deque *self)
 t_bool deque_empty(t_deque *self)
 {
 	return (self->cur_size == 0);
+}
+
+int	get_max_value(t_deque *self)
+{
+	int	i;
+	int	max;
+	int	size;
+
+	i = self->front;
+	max = self->arr[self->front];
+	size = self->cur_size;
+	
+	while (size)
+	{
+		if (max < self->arr[i])
+			max = self->arr[i];
+		i = (i + 1) % self->max_size;
+		size--;	
+	}
+	return (max);
+}
+
+int	get_min_value(t_deque *self)
+{
+	int	i;
+	int	min;
+	int	size;
+
+	i = self->front;
+	min = self->arr[self->front];
+	size = self->cur_size;
+	
+	while (size)
+	{
+		if (min > self->arr[i])
+			min = self->arr[i];
+		i = (i + 1) % self->max_size;
+		size--;	
+	}
+	return (min);
 }

@@ -124,7 +124,7 @@ static t_bool	init_element(t_deque *deque, size_t arr_size, char **input)
 	{
 		if (wrong_input(input[i]))
 			return (FALSE);
-		deque->push_back(deque, ft_atoi(input[i]));
+		deque->push_front(deque, ft_atoi(input[i]));
 		i++;
 	}
 	return (TRUE);
@@ -144,7 +144,7 @@ t_deque	*create_deque_and_fill_array(char **input, size_t element_size)
 	deque = create_deque(element_size);
 	if (deque == NULL)
 		return (NULL);
-	if (!init_element(deque, element_size, input))
+	if (init_element(deque, element_size, input) == FALSE)
 		return (free_deque(deque));
 	if (duplicate_input(deque->arr, element_size))
 		return (free_deque(deque));

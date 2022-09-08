@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 16:39:25 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/05 20:56:23 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/07 14:38:51 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	error()
 	write(2, "Error\n", 6);
 	return (1);
 }
-#include <stdio.h>
+
 int main(int argc, char **argv)
 {
 	t_deque	*a;
@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 		return (error());
 	if (init_deque(&a, &b, input, get_element_count(input)) == FALSE)
 		return (error());
+	sort_deque(a, b);
 	free_deque(a);
 	free_deque(b);
 	return (0);
