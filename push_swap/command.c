@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 17:07:06 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/07 17:00:06 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/13 10:19:36 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	push(t_deque *a, t_deque *b)
 	b->push_back(b, a_top);
 }
 
-void	pa(t_deque *b, t_deque *a)
+void	pa(t_deque *a, t_deque *b)
 {
 	push(b, a);
 	write(1, "pa\n", 3);

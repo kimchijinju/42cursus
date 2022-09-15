@@ -6,7 +6,7 @@ void	sa(t_deque *a);
 void	sb(t_deque *a);
 void	ss(t_deque *a, t_deque *b);
 void	pa(t_deque *a, t_deque *b);
-void	pb(t_deque *b, t_deque *a);
+void	pb(t_deque *a, t_deque *b);
 void	ra(t_deque *deque);
 void	rb(t_deque *deque);
 void	rr(t_deque *a, t_deque *b);
