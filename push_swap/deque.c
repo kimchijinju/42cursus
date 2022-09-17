@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:53:02 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/07 16:57:36 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/16 17:03:21 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	function_constructor(t_deque *new)
 	new->peek_back = peek_back;
 	new->deque_empty = deque_empty;
 	new->deque_full = deque_full;
+	new->peek_back_index = peek_back_index;
 }
 
 t_deque	*create_deque(int n)
@@ -96,6 +97,40 @@ int	peek_back(t_deque *self)
 	return (self->arr[back]);
 }
 
+int	peek_back_index(t_deque *self, int index)
+{
+	int back;
+
+	back = (self->back - (index + 1) + self->max_size) % self->max_size;
+	return (self->arr[back]);
+}
+
+int	get_min_value_index(t_deque *self)
+{
+	int	i;
+	int	min;
+	int	size;
+	int	min_index;
+	int	back;
+
+	i = 0;
+	min_index = i;
+	min = self->peek_back(self);
+	size = self->cur_size;
+	while (size)
+	{
+		back = (self->back - 1 - i + self->max_size) % self->max_size;
+		if (min > self->arr[back])
+		{
+			min_index = i;
+			min = self->arr[back];
+		}
+		i++;
+		size--;	
+	}
+	return (min_index);
+}
+
 t_bool deque_full(t_deque *self)
 {
 	return (self->cur_size == self->max_size);
@@ -104,44 +139,4 @@ t_bool deque_full(t_deque *self)
 t_bool deque_empty(t_deque *self)
 {
 	return (self->cur_size == 0);
-}
-
-int	get_max_value(t_deque *self)
-{
-	int	i;
-	int	max;
-	int	size;
-
-	i = self->front;
-	max = self->arr[self->front];
-	size = self->cur_size;
-	
-	while (size)
-	{
-		if (max < self->arr[i])
-			max = self->arr[i];
-		i = (i + 1) % self->max_size;
-		size--;	
-	}
-	return (max);
-}
-
-int	get_min_value(t_deque *self)
-{
-	int	i;
-	int	min;
-	int	size;
-
-	i = self->front;
-	min = self->arr[self->front];
-	size = self->cur_size;
-	
-	while (size)
-	{
-		if (min > self->arr[i])
-			min = self->arr[i];
-		i = (i + 1) % self->max_size;
-		size--;	
-	}
-	return (min);
 }
