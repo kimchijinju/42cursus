@@ -6,16 +6,26 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 16:39:25 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/20 14:50:55 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/21 02:26:32 by hankim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 static int	error(void)
 {
 	write(2, "Error\n", 6);
 	return (1);
+}
+
+static void ok(void)
+{
+	write(2, "OK\n", 3);
+}
+
+static void ko(void)
+{
+	write(2, "KO\n", 3);
 }
 
 int	main(int argc, char **argv)
@@ -37,6 +47,10 @@ int	main(int argc, char **argv)
 		free_deque(b);
 		return (0);
 	}
+	if (get_command_and_sort(a, b))
+		ok();
+	else
+		ko();
 	free_deque(a);
 	free_deque(b);
 	return (0);

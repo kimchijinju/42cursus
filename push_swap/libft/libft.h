@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 15:04:09 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/19 15:02:42 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/21 02:27:48 by hankim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "bool.h"
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
 void	*free_split(char **s, int i);
 int		ft_isalpha(int c);

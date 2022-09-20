@@ -6,12 +6,12 @@
 #    By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/01 13:48:26 by hanbkim           #+#    #+#              #
-#    Updated: 2022/09/20 14:39:29 by hanbkim          ###   ########.fr        #
+#    Updated: 2022/09/21 02:30:46 by hankim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra 
 
 MANDTORY_DIR = ./mandatory/
 CMD_DIR = $(MANDTORY_DIR)command/
@@ -30,16 +30,18 @@ OBJS = $(SRCS:%.c=%.o)
 BONUS_DIR = ./bonus/
 BCMD_DIR = $(BONUS_DIR)command/
 BDQ_DIR = $(BONUS_DIR)deque/
-SRCS_BONUS = $(BONUS_DIR)parse.c $(BONUS_DIR)main.c $(BONUS_DIR)error.c \
+
+SRCS_BONUS = $(BONUS_DIR)parse.c $(BONUS_DIR)main.c \
+			 $(BONUS_DIR)error.c $(BONUS_DIR)get_command.c \
 			 $(BDQ_DIR)deque_command1.c $(BDQ_DIR)deque_command2.c \
 			 $(BDQ_DIR)deque_create.c $(BDQ_DIR)deque_get_value.c \
 	   		 $(BCMD_DIR)swap.c $(BCMD_DIR)push.c \
 	   		 $(BCMD_DIR)rotate.c $(BCMD_DIR)reverse_rotate.c \
+			 $(BONUS_DIR)gnl/get_next_line.c
 
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
 
 INCLUDES = -I./includes/
-INCLUDES_BONUS = -I./includes/
 
 LIB = -L./libft/ -lft
 NAME = push_swap
@@ -58,18 +60,19 @@ $(NAME) : $(OBJS)
 
 $(BONUS_NAME) : $(OBJS_BONUS)
 	@make -C ./libft all
-	$(CC) $(CFLAGS) $^ -o checker $(INCLUDES_BONUS) $(LIB)
+	$(CC) $(CFLAGS) $^ -o $@ $(INCLUDES) $(LIB)
 
 clean :
 	@make -C ./libft clean
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) $(OBJS_BONUS)
 
 fclean : clean
 	@make -C ./libft fclean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(BONUS_NAME)
 
 re :
 	make fclean
 	make all
+	make bonus
 
 .PHONY: all clean fclean re

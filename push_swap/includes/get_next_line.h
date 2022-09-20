@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 18:04:19 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/20 13:00:00 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/21 02:31:41 by hankim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
 typedef struct s_list
 {

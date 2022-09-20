@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:53:02 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/20 08:54:22 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/21 00:08:54 by hankim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,14 @@ int	get_max_value(t_deque *self)
 	int	i;
 	int	back;
 	int	max;
-	int	max_index;
 
 	i = 0;
-	max_index = i;
 	max = self->peek_back(self);
 	while (i < self->cur_size)
 	{
 		back = (self->back - 1 - i + self->max_size) % self->max_size;
 		if (max < self->arr[back])
 		{
-			max_index = i;
 			max = self->arr[back];
 		}
 		i++;
