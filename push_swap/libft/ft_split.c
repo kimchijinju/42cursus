@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:00:05 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/02 22:55:33 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/20 09:01:18 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	*free_split(char **s, int i)
 	}
 	free(s);
 	s = NULL;
-
 	return (NULL);
 }
 

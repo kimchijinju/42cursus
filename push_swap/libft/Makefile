@@ -17,7 +17,7 @@ SRCS = ft_atoi.c ft_bzero.c ft_calloc.c \
 	   ft_strlcat.c ft_strlcpy.c ft_strlen.c \
 	   ft_strmapi.c ft_strncmp.c ft_strnstr.c \
 	   ft_strrchr.c ft_strtrim.c ft_substr.c \
-	   ft_tolower.c ft_toupper.c \
+	   ft_tolower.c ft_toupper.c ft_bubble_sort.c \
 	   
 BONUS_SRCS = ft_lstsize.c ft_lstlast.c ft_lstlast.c \
 			 ft_lstiter.c ft_lstdelone.c ft_lstclear.c \
