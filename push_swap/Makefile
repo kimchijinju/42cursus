@@ -6,12 +6,12 @@
 #    By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/01 13:48:26 by hanbkim           #+#    #+#              #
-#    Updated: 2022/09/21 14:37:26 by hanbkim          ###   ########.fr        #
+#    Updated: 2022/09/21 14:51:32 by hanbkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra
 
 MANDTORY_DIR = ./mandatory/
 CMD_DIR = $(MANDTORY_DIR)command/
