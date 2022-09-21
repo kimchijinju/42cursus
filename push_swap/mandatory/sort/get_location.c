@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:47:26 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/20 11:37:32 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/21 11:44:48 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ static int	get_a_rotate_count(t_deque *a, int b_value)
 	return (count);
 }
 
+static t_bool	judge_min_rotate(int a, int b, int min_a, int min_b)
+{
+	return (ft_abs(b) + ft_abs(a) < ft_abs(min_a) + ft_abs(min_b));
+}
+
 t_min_rotate_count	get_best_location(t_deque *a, t_deque *b)
 {
 	int					count;
@@ -47,7 +52,7 @@ t_min_rotate_count	get_best_location(t_deque *a, t_deque *b)
 		b_value = b->peek_back_index(b, count);
 		a_rotate_count = get_a_rotate_count(a, b_value);
 		b_rotate_count = judge_forward_reverse(b, count);
-		if (ft_abs(a_rotate_count) + ft_abs(b_rotate_count) < ft_abs(min.a) + ft_abs(min.b))
+		if (judge_min_rotate(a_rotate_count, b_rotate_count, min.a, min.b))
 		{
 			min.a = a_rotate_count;
 			min.b = b_rotate_count;

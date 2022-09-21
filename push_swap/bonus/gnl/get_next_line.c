@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:04:04 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/21 02:33:29 by hankim           ###   ########.fr       */
+/*   Updated: 2022/09/21 08:52:21 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static size_t	has_newline(char *buf)
 static char	*read_target(int fd, char *backup)
 {
 	char	buf[BUFFER_SIZE + 1];
+	char	*temp;
 	ssize_t	rd;
 
 	buf[0] = '\0';
@@ -40,6 +41,7 @@ static char	*read_target(int fd, char *backup)
 		if (rd < 0)
 			return (NULL);
 		buf[rd] = '\0';
+		temp = backup;
 		if (!backup)
 			backup = ft_strdup(buf);
 		else
@@ -120,8 +122,6 @@ char	*get_next_line(int fd)
 	if (*node->backup)
 	{
 		ret = malloc(backup_len + 1);
-		if (!ret)
-			return (ft_list_remove_if(&head, fd));
 		ret = ft_memmove(ret, node->backup, backup_len + 1);
 	}
 	ft_list_remove_if(&head, fd);

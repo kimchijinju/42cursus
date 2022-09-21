@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 15:47:26 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/20 10:55:07 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/21 14:29:25 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	partitioning(t_deque *a, t_deque *b)
 			ra(a);
 		count++;
 	}
-	while (!a->deque_empty(a))
+	while (a->cur_size > 3)
 		pb(a, b);
+	sort_three_elem(a);
 }

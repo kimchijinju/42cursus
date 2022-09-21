@@ -6,24 +6,25 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 16:39:25 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/21 02:26:32 by hankim           ###   ########.fr       */
+/*   Updated: 2022/09/21 11:35:50 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-static int	error(void)
+int	error(void)
 {
 	write(2, "Error\n", 6);
+	exit(1);
 	return (1);
 }
 
-static void ok(void)
+static void	ok(void)
 {
 	write(2, "OK\n", 3);
 }
 
-static void ko(void)
+static void	ko(void)
 {
 	write(2, "KO\n", 3);
 }
@@ -41,13 +42,7 @@ int	main(int argc, char **argv)
 		return (error());
 	if (init_deque(&a, &b, input) == FALSE)
 		return (error());
-	if (input_sorted(a))
-	{
-		free_deque(a);
-		free_deque(b);
-		return (0);
-	}
-	if (get_command_and_sort(a, b))
+	if (get_command_and_sort(a, b) == TRUE)
 		ok();
 	else
 		ko();

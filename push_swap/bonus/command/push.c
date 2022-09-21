@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 17:07:06 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/19 16:24:34 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/21 09:13:59 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,9 @@ void	push(t_deque *a, t_deque *b)
 void	pa(t_deque *a, t_deque *b)
 {
 	push(b, a);
-	write(1, "pa\n", 3);
 }
 
 void	pb(t_deque *a, t_deque *b)
 {
 	push(a, b);
-	write(1, "pb\n", 3);
 }

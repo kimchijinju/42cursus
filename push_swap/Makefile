@@ -6,12 +6,12 @@
 #    By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/01 13:48:26 by hanbkim           #+#    #+#              #
-#    Updated: 2022/09/21 02:30:46 by hankim           ###   ########.fr        #
+#    Updated: 2022/09/21 14:37:26 by hanbkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra -g3
 
 MANDTORY_DIR = ./mandatory/
 CMD_DIR = $(MANDTORY_DIR)command/
@@ -37,7 +37,7 @@ SRCS_BONUS = $(BONUS_DIR)parse.c $(BONUS_DIR)main.c \
 			 $(BDQ_DIR)deque_create.c $(BDQ_DIR)deque_get_value.c \
 	   		 $(BCMD_DIR)swap.c $(BCMD_DIR)push.c \
 	   		 $(BCMD_DIR)rotate.c $(BCMD_DIR)reverse_rotate.c \
-			 $(BONUS_DIR)gnl/get_next_line.c
+			 $(BONUS_DIR)gnl/get_next_line.c $(BONUS_DIR)gnl/get_next_line_utils.c
 
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
 

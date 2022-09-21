@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 14:19:23 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/20 11:33:54 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/09/21 14:29:07 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void				sort_deque(t_deque *a, t_deque *b);
 void				sort_from_b_to_a(t_deque *a, t_deque *b);
 void				partitioning(t_deque *a, t_deque *b);
 t_min_rotate_count	get_best_location(t_deque *a, t_deque *b);
+void				sort_three_elem(t_deque *a);
 int					ft_abs(int n);
 #endif
