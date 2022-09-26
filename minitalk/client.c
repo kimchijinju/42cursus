@@ -3,22 +3,25 @@
 #include <stdlib.h>
 #include <signal.h>
 
-#define sec 150
+#define sec 30
 
-void	recursive(unsigned char n, int server_pid)
+
+static int turn = 0;
+
+void	send_binary_bit(unsigned char n, int server_pid)
 {
 	if (n == 0)
 		return ;
-	recursive(n / 2, server_pid);
+	send_binary_bit(n / 2, server_pid);
+	usleep(sec);
 	if (n % 2 == 1)
 		kill(server_pid, SIGUSR1);
 	if (n % 2 == 0)
 		kill(server_pid, SIGUSR2);
-	usleep(sec);
 	pause();
 }
 
-void	send_empty_bit(unsigned char n, int server_pid)
+void	send_padding_bit(unsigned char n, int server_pid)
 {
 	int	count;
 
@@ -30,8 +33,8 @@ void	send_empty_bit(unsigned char n, int server_pid)
 	}
 	for(int i = 0; i < 8 - count; i++)
 	{
-		kill(server_pid, SIGUSR2);
 		usleep(sec);
+		kill(server_pid, SIGUSR2);
 		pause();
 	}
 }
@@ -55,8 +58,8 @@ int main(int argc, char **argv)
 	signal(SIGUSR2, handler);
 	while(*send_string)
 	{
-		send_empty_bit(*send_string, server_pid);
-		recursive(*send_string, server_pid);
+		send_padding_bit(*send_string, server_pid);
+		send_binary_bit(*send_string, server_pid);
 		send_string++;
 	}
 }

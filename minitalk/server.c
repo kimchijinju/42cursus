@@ -10,7 +10,7 @@ struct sigaction false_sig;
 int	count = 0;
 int	byte = 0;
 
-#define sec 250
+#define sec 30
 
 void	true_bit(int signum, siginfo_t *info, void *context)
 {	
