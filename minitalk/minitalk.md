@@ -32,5 +32,5 @@ main (argv)
 일단은 구현할게 이정도밖에 없어보임 
 클라이언트는 서버의 pid를 받아서 문자열을 보내야함 
 kill 함수로 신호를 보낼 수 있음.. 문자열은 어떻게 보내야할까
-locale charmap 문자 체계 확인 가능
+
 https://badayak.com/entry/C%EC%96%B8%EC%96%B4-%EC%8B%9C%EA%B7%B8%EB%84%90-%EC%B2%98%EB%A6%AC-%ED%95%A8%EC%88%98-sigaction
