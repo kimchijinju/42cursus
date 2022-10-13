@@ -1,0 +1,11 @@
+total 144
+drwxr-xr-x  10 hanbkim  2022_seoul    340 Sep 29 18:51 .
+drwxr-xr-x  15 hanbkim  2022_seoul    510 Sep 27 17:05 ..
+-rw-r--r--   1 hanbkim  2022_seoul   1367 Sep 29 18:23 Makefile
+-rw-r--r--   1 hanbkim  2022_seoul    619 Sep 29 18:51 a.txt
+drwxr-xr-x   8 hanbkim  2022_seoul    272 Sep 29 18:22 gnl
+drwxr-xr-x  78 hanbkim  2022_seoul   2652 Sep 29 18:17 libft
+-rw-r--r--   1 hanbkim  2022_seoul    671 Sep 29 18:51 main.c
+-rw-r--r--   1 hanbkim  2022_seoul   1720 Sep 29 18:51 main.o
+-rwxr-xr-x   1 hanbkim  2022_seoul  50544 Sep 29 18:51 pipex
+-rw-r--r--   1 hanbkim  2022_seoul   1189 Sep 28 14:25 pipex.md
