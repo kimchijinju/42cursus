@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 09:14:11 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/27 13:42:32 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:23:39 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ void	send_padding_bit(unsigned char n, int server_pid)
 
 void	handler(int signum)
 {
-	(void) signum;
-	ft_printf("catch!\n");
+	static int	count;
+
+	ft_printf("%d catch!, signum : %d\n", count++, signum);
 }
 
 int	main(int argc, char **argv)

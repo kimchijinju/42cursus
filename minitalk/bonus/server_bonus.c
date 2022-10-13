@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 09:14:20 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/09/27 13:43:03 by hanbkim          ###   ########.fr       */
+/*   Updated: 2022/10/06 15:27:06 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
 #include <stdlib.h>
+#include <sys/signal.h>
 #include "libft.h"
 
 t_reciver	g_reciver;
