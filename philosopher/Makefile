@@ -6,12 +6,12 @@
 #    By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/14 14:47:12 by hanbkim           #+#    #+#              #
-#    Updated: 2022/11/28 13:41:43 by hanbkim          ###   ########.fr        #
+#    Updated: 2023/01/24 16:26:32 by hanbkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
-CFLAGS		= -g3 -fsanitize=address #-Wextra -Wall -Werror 
+CFLAGS		= #-Wextra -Wall -Werror 
 SRCS		= main.c atoi.c
 
 OBJS		= $(SRCS:%.c=%.o)

@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:17:47 by hanbkim           #+#    #+#             */
-/*   Updated: 2022/11/28 16:35:56 by hanbkim          ###   ########.fr       */
+/*   Updated: 2023/01/24 16:36:51 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,8 @@
 # define PHILOSOPHER_H
 
 #include <pthread.h>
-
-enum e_philo_state
-{
-	THINKING,
-	HUNGRY,
-	EATING
-};
+#include <sys/time.h>
+#include <stdbool.h>
 
 typedef struct s_option
 {
@@ -33,13 +28,21 @@ typedef struct s_option
 
 typedef	struct s_philo_identity
 {
-	enum e_philo_state	*state;
-	pthread_mutex_t		*fork;
+	pthread_mutex_t		*m_fork;
+	pthread_mutex_t		*m_died;
 	t_option			*opt;
+	struct timeval		*last_eat_time;
+	bool				who_died;
 	int					seq;
+	struct timeval		start_time;
+	struct timeval		log_time;
 }	t_philo_identity;
 
 
 int	ft_atoi(char *str);
+
+// time.c
+void	msleep(int time);
+double	get_millisecond(struct timeval time);
 
 #endif
