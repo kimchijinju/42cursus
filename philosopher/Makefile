@@ -6,13 +6,13 @@
 #    By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/14 14:47:12 by hanbkim           #+#    #+#              #
-#    Updated: 2023/01/24 16:26:32 by hanbkim          ###   ########.fr        #
+#    Updated: 2023/01/24 17:11:47 by hanbkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
 CFLAGS		= #-Wextra -Wall -Werror 
-SRCS		= main.c atoi.c
+SRCS		= main.c atoi.c time.c philosopher_do.c monitering.c
 
 OBJS		= $(SRCS:%.c=%.o)
 
