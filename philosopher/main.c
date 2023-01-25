@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:18:41 by hanbkim           #+#    #+#             */
-/*   Updated: 2023/01/24 21:01:26 by hanbkim          ###   ########.fr       */
+/*   Updated: 2023/01/25 21:08:51 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,72 +39,80 @@ void	print_log(t_philo_identity *_this, char *log)
 	printf("%.0f %d %s\n", time, _this->seq, log);
 }
 
-t_shared_variable	*init_shared_variable(t_option *opt, pthread_t **thread)
+bool	shared_variable_init(t_option *opt, t_philo_identity **p, pthread_t **t)
 {
-	t_shared_variable	*shared;
-	pthread_mutex_t		*m_fork;
-	pthread_mutex_t		*m_died;
-	struct timeval		*last_eat_time;
-	int					i;
-
-	shared = malloc(sizeof(t_shared_variable));
-	*thread = malloc(sizeof(pthread_t) * opt->number_of_philosophers);
-	m_fork = malloc(sizeof(pthread_mutex_t) * opt->number_of_philosophers);
-	m_died = malloc(sizeof(pthread_mutex_t));
-	last_eat_time = malloc(sizeof(struct timeval) * opt->number_of_philosophers);
-	if (!shared || !*thread || !m_fork || !m_died || !last_eat_time)
+	*p = malloc(sizeof(t_philo_identity)
+			* opt->number_of_philosophers);
+	*t = malloc(sizeof(pthread_t) * opt->number_of_philosophers);
+	(*p)->shared = malloc(sizeof(t_shared_variable));
+	(*p)->shared->m_fork = malloc(sizeof(pthread_mutex_t)
+			* opt->number_of_philosophers);
+	(*p)->shared->m_died = malloc(sizeof(pthread_mutex_t));
+	(*p)->shared->last_eat_time = malloc(sizeof(struct timeval)
+			* opt->number_of_philosophers);
+	if (!*t || !(*p)->shared || !(*p)->shared->m_fork
+		|| !(*p)->shared->m_died || !(*p)->shared->last_eat_time)
 	{
-		free(shared);
-		free(thread);
-		free(m_fork);
-		free(m_died);
-		free(last_eat_time);
+		free(*t);
+		free((*p)->shared);
+		free((*p)->shared->m_fork);
+		free((*p)->shared->m_died);
+		free((*p)->shared->last_eat_time);
 		return (false);
 	}
-	pthread_mutex_init(m_died, NULL);
-	i = 0;
-	while (i < opt->number_of_philosophers)
-	{
-		pthread_mutex_init(&(m_fork[i]), NULL);
-		++i;
-	}
-	return (shared);
+	(*p)->shared->opt = opt;
+	return (true);
 }
 
-void	birth_philosopher(t_option *opt)
+void	mutex_init(t_shared_variable *shared)
 {
-	pthread_t			*thread;
-	t_shared_variable	*shared;
-	t_philo_identity	*philosophers;
-	int					i;
+	int	i;
 
-	philosophers = malloc(sizeof(t_philo_identity)
-			* opt->number_of_philosophers);
-	init_shared_variable(opt, &thread);
-	
+	i = 0;
+	while (i < shared->opt->number_of_philosophers)
+	{
+		pthread_mutex_init(&(shared->m_fork[i]), NULL);
+		++i;
+	}
+	pthread_mutex_init(shared->m_died, NULL);
+}
+
+bool	birth_philosopher(t_option *opt, t_philo_identity **philosophers, pthread_t **thread)
+{
+	int	i;
+
+	if (shared_variable_init(opt, philosophers, thread) == false)
+		return (false);
+	mutex_init((*philosophers)->shared);
 	i = 0;
 	while (i < opt->number_of_philosophers)
 	{
-		philosophers[i].shared = shared;
-		philosophers[i].seq = i;
-		philosophers[i].who_died = false;
-		gettimeofday(&philosophers[i].start_time, NULL);
-		gettimeofday(&philosophers[i].last_eat_time[i], NULL);
-		pthread_create(&thread[i], NULL,
-			philosopher_life_cycle, &philosophers[i]);
+		(*philosophers)[i].shared = (*philosophers)->shared;
+		(*philosophers)[i].seq = i;
+		(*philosophers)[i].who_died = false;
+		gettimeofday(&(*philosophers)[i].start_time, NULL);
+		gettimeofday(&(*philosophers)[i].shared->last_eat_time[i], NULL);
+		if (i % 2 == 0)
+			usleep(30);
+		pthread_create(&(*thread)[i], NULL,
+			philosopher_life_cycle, &(*philosophers)[i]);
 		++i;
 	}
+	return (true);
 }
 
-int main(int argc, char **argv)
+void	wait_and_destory(t_philo_identity *philosophers, pthread_t *thread);
+int	main(int argc, char **argv)
 {
 	t_option			opt;
 	t_philo_identity	*philosophers;
+	pthread_t			*thread;
 
 	if (argc != 5 && argc != 6)
 		return (1);
 	init_argment(&opt, argc, argv);
-	birth_philosopher(&opt);
+	if (birth_philosopher(&opt, &philosophers, &thread) == false)
+		return (1);
 	monitering_philosophers(philosophers);
+	wait_and_destory(philosophers, thread);
 }
-
