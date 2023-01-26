@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:17:47 by hanbkim           #+#    #+#             */
-/*   Updated: 2023/01/25 21:07:19 by hanbkim          ###   ########.fr       */
+/*   Updated: 2023/01/26 16:26:57 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ typedef struct s_option
 
 typedef struct s_shaerd_variable
 {
-	pthread_mutex_t		*m_fork;
-	pthread_mutex_t		*m_died;
-	t_option			*opt;
-	struct timeval		*last_eat_time;
+	pthread_mutex_t	*m_fork;
+	pthread_mutex_t	m_died;
+	t_option		*opt;
+	double			*last_eat_time;
+	bool			who_died;
 }	t_shared_variable;
 
 typedef struct s_philo_identity
 {
 	t_shared_variable	*shared;
-	struct timeval		start_time;
-	struct timeval		log_time;
-	bool				who_died;
+	double				start_time;
+	int					philo_must_eat;
 	int					seq;
 }	t_philo_identity;
 
@@ -47,7 +47,8 @@ int		ft_atoi(char *str);
 void	print_log(t_philo_identity *_this, char *log);
 void	*philosopher_life_cycle(void *arg);
 void	monitering_philosophers(t_philo_identity *philosophers);
-void	msleep(int time);
-double	get_millisecond(struct timeval time);
+void	wait_and_destory(t_shared_variable *shared, pthread_t *thread);
+void	msleep(double time);
+double	get_millisecond();
 
 #endif

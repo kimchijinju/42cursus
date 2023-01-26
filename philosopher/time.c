@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:35:14 by hanbkim           #+#    #+#             */
-/*   Updated: 2023/01/25 21:09:05 by hanbkim          ###   ########.fr       */
+/*   Updated: 2023/01/26 14:56:03 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 #include <unistd.h>
 #include "philosopher.h"
 
-void	msleep(int time)
+void	msleep(double time)
 {
-	struct timeval	start_time;
-	struct timeval	cur_time;
+	const double	start_time = get_millisecond();
+	double	cur_time;
 
-	gettimeofday(&start_time, NULL);
-	gettimeofday(&cur_time, NULL);
-	while (get_millisecond(cur_time) - get_millisecond(start_time) < time)
-		gettimeofday(&cur_time, NULL);
+	cur_time = get_millisecond();
+	while (cur_time - start_time < time)
+		cur_time = get_millisecond();
 }
 
-double	get_millisecond(struct timeval time)
+double	get_millisecond()
 {
-	double	milli_second;
+	double			milli_second;
+	struct timeval	time;
 
+	gettimeofday(&time, NULL);
 	milli_second = (time.tv_sec + (time.tv_usec / 1000000.0)) * 1000.0;
 	return (milli_second);
 }
