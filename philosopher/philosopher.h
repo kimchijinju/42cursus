@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:17:47 by hanbkim           #+#    #+#             */
-/*   Updated: 2023/01/26 16:26:57 by hanbkim          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:29:59 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,19 @@ typedef struct s_shaerd_variable
 {
 	pthread_mutex_t	*m_fork;
 	pthread_mutex_t	m_died;
+	pthread_mutex_t	m_last_eat_time;
+	pthread_mutex_t	m_philo_must_eat;
 	t_option		*opt;
-	double			*last_eat_time;
+	long			*last_eat_time;
 	bool			who_died;
 }	t_shared_variable;
 
 typedef struct s_philo_identity
 {
 	t_shared_variable	*shared;
-	double				start_time;
+	long				start_time;
 	int					philo_must_eat;
+	bool				eat_done;
 	int					seq;
 }	t_philo_identity;
 
@@ -47,8 +50,13 @@ int		ft_atoi(char *str);
 void	print_log(t_philo_identity *_this, char *log);
 void	*philosopher_life_cycle(void *arg);
 void	monitering_philosophers(t_philo_identity *philosophers);
-void	wait_and_destory(t_shared_variable *shared, pthread_t *thread);
+void	wait_thread(t_shared_variable *shared, pthread_t *thread);
+bool	philosopher_starvation(t_philo_identity *_this,
+			bool left_fork_use, bool right_fork_use);
+bool	birth_philosopher(t_option *opt,
+			t_philo_identity **philosophers, pthread_t **thread);
 void	msleep(double time);
-double	get_millisecond();
+long	get_millisecond(void);
+void	print_log(t_philo_identity *_this, char *log);
 
 #endif
