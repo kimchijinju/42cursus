@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:17:47 by hanbkim           #+#    #+#             */
-/*   Updated: 2023/01/30 17:29:59 by hanbkim          ###   ########.fr       */
+/*   Updated: 2023/01/31 14:46:34 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,26 @@ typedef struct s_philo_identity
 	int					seq;
 }	t_philo_identity;
 
-int		ft_atoi(char *str);
-void	print_log(t_philo_identity *_this, char *log);
-void	*philosopher_life_cycle(void *arg);
+bool	valid_argment(int argc, char **argv);
+void	init_argment(t_option *opt, int argc, char **argv);
+
 void	monitering_philosophers(t_philo_identity *philosophers);
+bool	who_is_died(t_philo_identity *philosophers);
 void	wait_thread(t_shared_variable *shared, pthread_t *thread);
-bool	philosopher_starvation(t_philo_identity *_this,
-			bool left_fork_use, bool right_fork_use);
+
 bool	birth_philosopher(t_option *opt,
 			t_philo_identity **philosophers, pthread_t **thread);
-void	msleep(double time);
-long	get_millisecond(void);
+
+void	*philosopher_life_cycle(void *arg);
+bool	solo_philosopher(t_philo_identity *_this);
+bool	philosopher_starvation(t_philo_identity *_this,
+			bool left_fork_use, bool right_fork_use);
+bool	take_up_fork(t_philo_identity *_this);
+bool	take_down_fork(t_philo_identity *_this);
+
+int		ft_atoi(char *str);
 void	print_log(t_philo_identity *_this, char *log);
+void	msleep(int time);
+long	get_millisecond(void);
 
 #endif
