@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 11:17:47 by hanbkim           #+#    #+#             */
-/*   Updated: 2023/01/31 14:46:34 by hanbkim          ###   ########.fr       */
+/*   Updated: 2023/02/03 13:50:21 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdbool.h>
+
+# define TABLE 0
+# define HAND 1
 
 typedef struct s_option
 {
@@ -29,11 +32,11 @@ typedef struct s_option
 typedef struct s_shaerd_variable
 {
 	pthread_mutex_t	*m_fork;
+	bool			*fork_state;
 	pthread_mutex_t	m_died;
 	pthread_mutex_t	m_last_eat_time;
 	pthread_mutex_t	m_philo_must_eat;
 	t_option		*opt;
-	long			*last_eat_time;
 	bool			who_died;
 }	t_shared_variable;
 
@@ -42,6 +45,7 @@ typedef struct s_philo_identity
 	t_shared_variable	*shared;
 	long				start_time;
 	int					philo_must_eat;
+	long				last_eat_time;
 	bool				eat_done;
 	int					seq;
 }	t_philo_identity;

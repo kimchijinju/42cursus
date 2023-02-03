@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 17:09:15 by hanbkim           #+#    #+#             */
-/*   Updated: 2023/01/31 14:44:59 by hanbkim          ###   ########.fr       */
+/*   Updated: 2023/01/31 21:41:50 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	msleep(int time)
 
 	cur_time = get_millisecond();
 	while (cur_time - start_time < time)
+	{
+		usleep(100);
 		cur_time = get_millisecond();
+	}
 }
 
 long	get_millisecond(void)

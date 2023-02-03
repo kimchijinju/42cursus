@@ -6,7 +6,7 @@
 /*   By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:41:55 by hanbkim           #+#    #+#             */
-/*   Updated: 2023/01/31 14:50:41 by hanbkim          ###   ########.fr       */
+/*   Updated: 2023/01/31 21:31:33 by hanbkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	eat_spaghetti(t_philo_identity *_this)
 	if (philosopher_starvation(_this, true, true) == true)
 		return (false);
 	pthread_mutex_lock(&_this->shared->m_last_eat_time);
-	_this->shared->last_eat_time[_this->seq] = get_millisecond();
+	_this->last_eat_time = get_millisecond();
 	pthread_mutex_unlock(&_this->shared->m_last_eat_time);
 	print_log(_this, "is eating");
 	msleep(_this->shared->opt->time_to_eat);
