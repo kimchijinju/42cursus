@@ -5,28 +5,18 @@
 
 class Contact {
  public:
-  Contact();
   Contact(const std::string &first_name,
           const std::string &last_name,
           const std::string &nick_name,
           const std::string &phone_number,
           const std::string &darkest_secret);
-
-  const std::string &first_name() const {
-    return first_name_;
-  }
-  const std::string &last_name() const {
-    return last_name_;
-  }
-  const std::string &nick_name() const {
-    return nick_name_;
-  }
-  const std::string &phone_number() const {
-    return phone_number_;
-  }
-  const std::string &darkest_secret() const {
-    return darkest_secret_;
-  }
+  
+  Contact();
+  const std::string &first_name() const;
+  const std::string &last_name() const;
+  const std::string &nick_name() const;
+  const std::string &phone_number() const;
+  const std::string &darkest_secret() const;
 
  private:
   std::string first_name_;
