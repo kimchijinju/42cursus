@@ -83,8 +83,9 @@ void Account::makeDeposit(int deposit)
 	_nbDeposits += 1;
 
 	print_with_semicolon("amount", _amount);
-	print_with_endl("nb_deposits:", _nbDeposits);
+	print_with_endl("nb_deposits", _nbDeposits);
 
+	_totalAmount += deposit;
 	_totalNbDeposits += 1;
 }
 
@@ -104,6 +105,7 @@ bool Account::makeWithdrawal(int withdrawal)
 	_nbWithdrawals += 1;
 	print_with_endl("nb_withdrawals", _nbWithdrawals);
 
+	_totalAmount -= withdrawal;
 	_totalNbWithdrawals += 1;
 	return true;
 }
@@ -126,11 +128,11 @@ void Account::_displayTimestamp(void)
 {
 	time_t rawtime;
 	struct tm* timeinfo;
-	char buffer[80];
+	char buffer[20];
 
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
-	strftime(buffer, 80, "[%Y%m%d_%H%M%S] ", timeinfo);
+	strftime(buffer, 20, "[%Y%m%d_%H%M%S] ", timeinfo);
 
 	std::cout << buffer;
 }

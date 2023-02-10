@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hanbkim <hanbkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/09 11:50:25 by hanbkim           #+#    #+#              #
-#    Updated: 2023/02/09 11:50:36 by hanbkim          ###   ########.fr        #
+#    Created: 2023/02/09 11:56:11 by hanbkim           #+#    #+#              #
+#    Updated: 2023/02/09 11:59:31 by hanbkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = megaphone.cpp
+SRCS = Account.cpp tests.cpp
 
-NAME = megaphone
+NAME = log
 
 include ../Makefile.template

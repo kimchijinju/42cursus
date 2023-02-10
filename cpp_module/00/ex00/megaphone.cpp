@@ -1,6 +1,6 @@
 #include <iostream>
 
-void inputToUpper(char *string)
+static void inputToUpper(char *string)
 {
 	for (int i = 0; string[i]; ++i)
 		string[i] = std::toupper(string[i]);
@@ -20,5 +20,3 @@ int main(int argc, char **argv)
 	}
 	std::cout << '\n';
 }
-
-
