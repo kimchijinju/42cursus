@@ -1,5 +1,5 @@
-#include "mycin.hpp"
-#include "phonebook.hpp"
+#include "FtCin.hpp"
+#include "PhoneBook.hpp"
 
 void UsePhoneBook() {
   std::string command;
@@ -7,7 +7,7 @@ void UsePhoneBook() {
 
   while (true) {
     std::cout << "PHONE BOOK MANUAL : TAKE ONE COMMAND...\n[ADD] [SEARCH] [EXIT]\n\n";
-	ft_cin::getline(command);
+	FtCin::getline(command);
 
 	if (command == "ADD")
 		phone_book.Add();

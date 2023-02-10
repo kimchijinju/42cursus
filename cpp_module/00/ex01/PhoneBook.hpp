@@ -1,8 +1,8 @@
 #ifndef PHONEBOOK_H
 #define PHONEBOOK_H
 
-#include "contact.hpp"
-#include "mycin.hpp"
+#include "Contact.hpp"
+#include "FtCin.hpp"
 
 class PhoneBook {
 public:

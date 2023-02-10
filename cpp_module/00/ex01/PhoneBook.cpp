@@ -1,4 +1,4 @@
-#include "phonebook.hpp"
+#include "PhoneBook.hpp"
 
 PhoneBook::PhoneBook() {
 	sequence_ = 0;
@@ -26,7 +26,7 @@ void PhoneBook::Search() {
 
 	while (true) {
 		std::cout << "\ntake index (0 ~ 7) : ";
-		ft_cin::getline(input);
+		FtCin::getline(input);
 
 		if (input.length() == 1 && input[0] >= '0' && input[0] <= '7')
 			break ;
@@ -34,7 +34,7 @@ void PhoneBook::Search() {
 
 	int index;
 
-	index = std::stoi(input);
+	index = std::atoi(input.c_str());
 	if (contact_count_ <= index) 
 	{
 		std::cout << "\nPlease enter the correct input.\n";
@@ -56,7 +56,7 @@ bool PhoneBook::IsEmptyInput(std::string str) {
 }
 
 bool PhoneBook::GetInput(std::string &str) {
-	ft_cin::getline(str);
+	FtCin::getline(str);
 	if (IsEmptyInput(str)) {
 		std::cout << "\nEmpty field can't save\n";
 		return false;

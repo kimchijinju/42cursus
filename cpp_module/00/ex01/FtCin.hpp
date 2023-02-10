@@ -2,10 +2,10 @@
 #include <iomanip>
 #include <string>
 
-#ifndef MYCIN_H
-#define MYCIN_H
+#ifndef FTCIN_H
+#define FTCIN_H
 
-class ft_cin
+class FtCin
 {
   public:
   static void getline(std::string &str);

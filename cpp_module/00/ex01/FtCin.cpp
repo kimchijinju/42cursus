@@ -1,6 +1,6 @@
-#include "mycin.hpp"
+#include "FtCin.hpp"
 
-void ft_cin::getline(std::string &str) {
+void FtCin::getline(std::string &str) {
 	std::cin.clear();
 	clearerr(stdin);
 	std::getline(std::cin,str);
