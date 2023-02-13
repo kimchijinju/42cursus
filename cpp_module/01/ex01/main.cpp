@@ -1,13 +1,11 @@
 #include "Zombie.hpp"
 
-int main()
-{
-    Zombie *hanbkim = newZombie("hanbkim");
-    hanbkim->announce();
-    delete hanbkim;
+int main() {
+  int zombieCount = 5;
+  Zombie *zombie = zombieHorde(zombieCount, "zombie");
 
-    randomChump("joushin");
-
-//    Zombie *wbae = newZombie("wbae");
-//    wbae->announce();
+  for (int i = 0; i < zombieCount; ++i) {
+    zombie[i].announce();
+  }
+  delete []zombie;
 }

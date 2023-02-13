@@ -3,16 +3,17 @@
 
 Zombie::Zombie()
 {
-    std::cout << "zombie allocated..";
+  std::cout << "zombie allocated..\n";
 }
 
 Zombie::~Zombie() {
-    std::cout << name << " is delete..\n";
+  std::cout << name << " is delete..\n";
 }
 
 void Zombie::announce() {
-    std::cout << name << ": BraiiiiiiinnnzzzZ...\n";
+  std::cout << name << ": BraiiiiiiinnnzzzZ...\n";
 }
 
-Zombie::Zombie(std::string _name) : name(_name) {}
-
+void Zombie::setName(std::string _name) {
+  name = _name;
+}
