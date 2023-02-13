@@ -1,12 +1,11 @@
 #include "Zombie.hpp"
 
-int main()
-{
-    Zombie *hanbkim = newZombie("hanbkim");
-    hanbkim->announce();
-    delete hanbkim;
+int main() {
+  Zombie *hanbkim = newZombie("hanbkim");
+  hanbkim->announce();
+  delete hanbkim;
 
-    randomChump("joushin");
+  randomChump("joushin");
 
 //    Zombie *wbae = newZombie("wbae");
 //    wbae->announce();
