@@ -1,5 +1,5 @@
 SRCS = main.cpp
 
-NAME = a.out
+NAME = sed
 
 include ../Makefile
