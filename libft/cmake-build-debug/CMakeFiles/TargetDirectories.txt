@@ -1,4 +1,0 @@
-/Users/gimhanbin/development/42cursus/libft/cmake-build-debug/CMakeFiles/ft_strdup.dir
-/Users/gimhanbin/development/42cursus/libft/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/gimhanbin/development/42cursus/libft/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/gimhanbin/development/42cursus/libft/cmake-build-debug/CMakeFiles/libft.dir

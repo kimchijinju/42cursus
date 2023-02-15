@@ -1,5 +1,0 @@
-# ninja log v5
-2	53	1657985172010150548	build.ninja	adcbfb7b93b2e973
-0	20	1657976163399117767	CMakeFiles/libft.dir/srcs/ft_toupper.c.o	27fb857ba37424b4
-0	20	1657976163399513765	CMakeFiles/libft.dir/srcs/ft_isfunc.c.o	2e4e46abaca41e2f
-0	25	1657976163403860045	CMakeFiles/libft.dir/srcs/ft_strncmp.c.o	221e712951492525
