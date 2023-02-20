@@ -7,14 +7,12 @@ Fixed::Fixed() {
   value = 0;
 }
 
-Fixed::Fixed(const int n) {
+Fixed::Fixed(const int n) : value(n << factionalBits) {
   std::cout << "Int constructor called\n";
-  value = n << factionalBits;
 }
 
-Fixed::Fixed(const float n) {
+Fixed::Fixed(const float n) : value(roundf(n * 256.0f)) {
   std::cout << "Float constructor called\n";
-  value = roundf(n * 256.0f);
 }
 
 Fixed::~Fixed() {
@@ -23,7 +21,7 @@ Fixed::~Fixed() {
 
 Fixed::Fixed(const Fixed &fixed) {
   std::cout << "Copy constructor called\n";
-  value = fixed.value;
+  value = fixed.getRawBits();
 }
 
 Fixed &Fixed::operator=(const Fixed &fixed) {
