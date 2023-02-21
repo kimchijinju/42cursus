@@ -53,11 +53,11 @@ bool Fixed::operator!=(const Fixed &fixed) const {
   return value != fixed.value;
 }
 
-Fixed Fixed::operator+(const Fixed &fixed) {
+Fixed Fixed::operator+(const Fixed &fixed) const {
   return Fixed(toFloat() + fixed.toFloat());
 }
 
-Fixed Fixed::operator-(const Fixed &fixed) {
+Fixed Fixed::operator-(const Fixed &fixed) const {
   return Fixed(toFloat() - fixed.toFloat());
 }
 
@@ -65,7 +65,7 @@ Fixed Fixed::operator*(const Fixed &fixed) const {
   return Fixed(toFloat() * fixed.toFloat());
 }
 
-Fixed Fixed::operator/(const Fixed &fixed) {
+Fixed Fixed::operator/(const Fixed &fixed) const {
   return Fixed(toFloat() / fixed.toFloat());
 }
 
@@ -77,6 +77,17 @@ Fixed &Fixed::operator++() {
 const Fixed Fixed::operator++(int) {
   const Fixed temp = (*this);
   ++value;
+  return temp;
+}
+
+Fixed &Fixed::operator--() {
+  --value;
+  return *this;
+}
+
+const Fixed Fixed::operator--(int) {
+  const Fixed temp = (*this);
+  --value;
   return temp;
 }
 
@@ -116,3 +127,4 @@ Fixed &Fixed::min(Fixed &f1, Fixed &f2) {
 const Fixed &Fixed::min(const Fixed &f1, const Fixed &f2) {
   return f1 < f2 ? f1 : f2;
 }
+

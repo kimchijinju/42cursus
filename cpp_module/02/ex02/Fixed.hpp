@@ -19,13 +19,15 @@ class Fixed {
   bool operator==(const Fixed &fixed) const;
   bool operator!=(const Fixed &fixed) const;
 
-  Fixed operator+(const Fixed &fixed);
-  Fixed operator-(const Fixed &fixed);
+  Fixed operator+(const Fixed &fixed) const;
+  Fixed operator-(const Fixed &fixed) const;
   Fixed operator*(const Fixed &fixed) const;
-  Fixed operator/(const Fixed &fixed);
+  Fixed operator/(const Fixed &fixed) const;
 
   Fixed &operator++();
   const Fixed operator++(int);
+  Fixed &operator--();
+  const Fixed operator--(int);
 
   static Fixed &max(Fixed &f1, Fixed &f2);
   static const Fixed &max(const Fixed &f1, const Fixed &f2);
