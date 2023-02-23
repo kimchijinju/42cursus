@@ -10,7 +10,7 @@ ScavTrap::ScavTrap() : ClapTrap("default", 100, 50, 20) {
   std::cout << "ScavTrap " << name << " is create from default constructor.\n";
 }
 
-ScavTrap::ScavTrap(const std::string &name) : ClapTrap(name, 100, 50, 20) {
+ScavTrap::ScavTrap(const std::string &_name) : ClapTrap(_name, 100, 50, 20) {
   std::cout << "ScavTrap " << name << " is create from constructor.\n";
 }
 

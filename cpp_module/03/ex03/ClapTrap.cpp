@@ -22,11 +22,11 @@ ClapTrap::ClapTrap(const ClapTrap &clapTrap)
   std::cout << "ClapTrap " << name << " is create from copy constructor.\n";
 }
 
-ClapTrap::ClapTrap(const std::string &name,
+ClapTrap::ClapTrap(const std::string &_name,
                    unsigned int hit_point,
                    unsigned int energy_point,
                    unsigned int attack_damage)
-    : name(name), hitPoint(hit_point), energyPoint(energy_point), attackDamage(attack_damage) {
+    : name(_name), hitPoint(hit_point), energyPoint(energy_point), attackDamage(attack_damage) {
   std::cout << "ClapTrap " << name << " is create from constructor.\n";
 }
 
