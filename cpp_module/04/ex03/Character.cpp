@@ -43,7 +43,7 @@ const std::string &Character::getName() const {
 
 void Character::equip(AMateria *m) {
   for (int i = 0; i < max_slot_; ++i) {
-    if (slot_[i] != NULL) {
+    if (slot_[i] == NULL) {
       slot_[i] = m;
       return;
     }
@@ -53,6 +53,8 @@ void Character::equip(AMateria *m) {
 void Character::unequip(int idx) {
   if (idx >= max_slot_)
     return;
+  if (slot_[idx] == NULL)
+    return;
   inventory.push_back(slot_[idx]);
   slot_[idx] = NULL;
 }
@@ -60,5 +62,7 @@ void Character::unequip(int idx) {
 void Character::use(int idx, ICharacter &target) {
   if (idx >= max_slot_)
     return;
-  slot_[idx]->AMateria::use(target);
+  if (slot_[idx] == NULL)
+    return;
+  slot_[idx]->use(target);
 }

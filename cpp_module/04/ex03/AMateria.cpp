@@ -3,6 +3,7 @@
 //
 
 #include "AMateria.hpp"
+#include <iostream>
 
 AMateria::AMateria(const std::string &type) : type_(type) {}
 
@@ -13,5 +14,5 @@ std::string const &AMateria::getType() const {
 }
 
 void AMateria::use(ICharacter &target) {
-  target.getName();
+  std::cout << target.getName() << "\n";
 }
