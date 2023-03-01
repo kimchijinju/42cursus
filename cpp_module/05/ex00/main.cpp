@@ -11,11 +11,11 @@ int main() {
 //      std::cout << hanbkim;
 //    }
 
-    Bureaucrat joushin = Bureaucrat("joushin", 0);
+    Bureaucrat joushin = Bureaucrat("joushin", 151);
     std::cout << joushin;
 
   } catch (std::exception &e) {
-    std::cout << e.what();
+    std::cout << e.what() << '\n';
   }
 
 }
