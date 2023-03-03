@@ -3,7 +3,7 @@
 
 int main() {
   try {
-    Bureaucrat hanbkim = Bureaucrat("hanbkim", 5);
+    Bureaucrat hanbkim("hanbkim", 5);
     std::cout << hanbkim << '\n';
 
 //    for (int i = 0; i < 5; ++i) {
@@ -11,7 +11,7 @@ int main() {
 //      std::cout << hanbkim;
 //    }
 
-    Bureaucrat joushin = Bureaucrat("joushin", 151);
+    Bureaucrat joushin("joushin", 151);
     std::cout << joushin;
 
   } catch (std::exception &e) {

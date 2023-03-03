@@ -15,17 +15,18 @@ class Bureaucrat {
   unsigned int getGrade() const;
 
  private:
-  const std::string name_;
-  unsigned int grade_;
-
   class GradeTooHighException : public std::exception {
    public:
     const char *what() const throw();
   };
 
   class GradeTooLowException : public std::exception {
+   public:
     const char *what() const throw();
   };
+
+  const std::string name_;
+  unsigned int grade_;
 
  private: // not use
   Bureaucrat();
