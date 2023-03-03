@@ -1,4 +1,4 @@
-SRCS = AMateria.cpp Ice.cpp Cure.cpp Character.cpp MateriaSource.cpp main.cpp
+SRCS = AMateria.cpp Ice.cpp Cure.cpp Character.cpp MateriaSource.cpp Inventory.cpp main.cpp
 
 CXXFLAGS = -g3
 

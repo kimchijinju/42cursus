@@ -6,8 +6,8 @@
 #define INC_04_EX03_CHARACTER_HPP_
 
 #include <string>
-#include <list>
 #include "ICharacter.hpp"
+#include "Inventory.hpp"
 
 class Character : public ICharacter {
  public:
@@ -24,9 +24,8 @@ class Character : public ICharacter {
  private:
   std::string name_;
   AMateria *slot_[4];
-  static const int max_slot_ = 4;
-
-  std::list<AMateria *> inventory;
+  static const int MAX_SLOT = 4;
+  Inventory inventory_;
 
  private: // not use
   Character();

@@ -19,7 +19,7 @@ class MateriaSource : public IMateriaSource {
 
  private:
   AMateria *memorize_[4];
-  static const int max_memorize_ = 4;
+  static const int MAX_MEMORIZE = 4;
 };
 
 #endif //INC_04_EX03_MATERIASOURCE_HPP_

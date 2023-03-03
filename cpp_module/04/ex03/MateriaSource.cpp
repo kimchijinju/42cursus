@@ -14,7 +14,7 @@ MateriaSource::~MateriaSource() {
 }
 
 MateriaSource::MateriaSource(const MateriaSource &materiaSource) {
-  for (int i = 0; i < max_memorize_; ++i) {
+  for (int i = 0; i < MAX_MEMORIZE; ++i) {
     memorize_[i] = materiaSource.memorize_[i]->clone();
   }
 }
@@ -22,7 +22,7 @@ MateriaSource::MateriaSource(const MateriaSource &materiaSource) {
 MateriaSource &MateriaSource::operator=(const MateriaSource &materiaSource) {
   if (this == &materiaSource)
     return *this;
-  for (int i = 0; i < max_memorize_; ++i) {
+  for (int i = 0; i < MAX_MEMORIZE; ++i) {
     if (memorize_[i] != NULL) {
       delete memorize_[i];
       memorize_[i] = NULL;
@@ -35,7 +35,7 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &materiaSource) {
 }
 
 void MateriaSource::learnMateria(AMateria *materia) {
-  for (int i = 0; i < max_memorize_; ++i) {
+  for (int i = 0; i < MAX_MEMORIZE; ++i) {
     if (memorize_[i] == NULL) {
       memorize_[i] = materia;
       return;
@@ -44,7 +44,7 @@ void MateriaSource::learnMateria(AMateria *materia) {
 }
 
 AMateria *MateriaSource::createMateria(const std::string &type) {
-  for (int i = 0; i < max_memorize_; ++i) {
+  for (int i = 0; i < MAX_MEMORIZE; ++i) {
     if (memorize_[i] == NULL) {
       continue;
     }
