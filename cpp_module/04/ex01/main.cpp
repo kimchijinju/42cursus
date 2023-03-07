@@ -18,7 +18,7 @@ int main() {
   }
 
   (*animal)[0] = (*animal)[3]; // deep copy
-  std::cout << "0 : " << animal[0]->getType() << "\n1 : " << animal[3]->getType() << '\n';
+  std::cout << "0 : " << animal[0]->getType() << "\n3 : " << animal[3]->getType() << '\n';
 
   for (int i = 0; i < 4; ++i) {
     animal[i]->makeSound();

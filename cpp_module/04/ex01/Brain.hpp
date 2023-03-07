@@ -11,10 +11,10 @@ class Brain {
  public:
   Brain();
   ~Brain();
-
- private:
   Brain(const Brain &brain);
   Brain &operator=(const Brain &brain);
+
+ private:
   std::string ideas[100];
 };
 
