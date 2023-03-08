@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Dog.hpp"
 
-Dog::Dog() : Animal("Dog"), brain(new Brain()) {
+Dog::Dog() : AAnimal("Dog"), brain(new Brain()) {
   std::cout << "Call Dog constructor.\n";
 
 }
@@ -11,7 +11,7 @@ Dog::~Dog() {
   delete brain;
 }
 
-Dog::Dog(const Dog &dog) : Animal(dog.type), brain(new Brain(*dog.brain)) {
+Dog::Dog(const Dog &dog) : AAnimal(dog.type), brain(new Brain(*dog.brain)) {
   std::cout << "Call Dog copy constructor.\n";
 }
 

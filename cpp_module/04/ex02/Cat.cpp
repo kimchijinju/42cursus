@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Cat.hpp"
 
-Cat::Cat() : Animal("Cat"), brain(new Brain()) {
+Cat::Cat() : AAnimal("Cat"), brain(new Brain()) {
   std::cout << "Call Cat constructor.\n";
 }
 
@@ -10,7 +10,7 @@ Cat::~Cat() {
   delete brain;
 }
 
-Cat::Cat(const Cat &cat) : Animal(cat.type), brain(new Brain(*cat.brain)) {
+Cat::Cat(const Cat &cat) : AAnimal(cat.type), brain(new Brain(*cat.brain)) {
   std::cout << "Call Cat copy constructor.\n";
 }
 
