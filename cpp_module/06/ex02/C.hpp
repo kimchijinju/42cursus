@@ -11,6 +11,11 @@ class C : public Base {
  public:
   C();
   ~C();
+  char getType() const;
+
+ private:
+  char type;
+
  private: // not use
   C(const C &c);
   C &operator= (const C &c);

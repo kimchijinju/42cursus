@@ -11,7 +11,11 @@ class A : public Base {
  public:
   A();
   ~A();
-  int val;
+  char getType() const;
+
+ private:
+  char type;
+
  private: // not use
   A(const A &a);
   A &operator=(const A &a);

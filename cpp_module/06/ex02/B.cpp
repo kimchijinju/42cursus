@@ -3,9 +3,12 @@
 //
 
 #include "B.hpp"
-B::B() {
+B::B() : type('B') {
 
 }
 B::~B() {
 
+}
+char B::getType() const {
+  return type;
 }

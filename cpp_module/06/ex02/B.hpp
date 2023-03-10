@@ -11,6 +11,9 @@ class B : public Base {
  public:
   B();
   ~B();
+  char getType() const;
+ private:
+  char type;
 
  private: // not use
   B(const B &b);

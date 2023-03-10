@@ -3,9 +3,12 @@
 //
 
 #include "C.hpp"
-C::C() {
+C::C() : type('C') {
 
 }
 C::~C() {
 
+}
+char C::getType() const {
+  return type;
 }

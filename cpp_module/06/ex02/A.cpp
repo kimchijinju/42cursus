@@ -2,9 +2,14 @@
 //
 
 #include "A.hpp"
-A::A() {
+A::A() : type('A'){
 
 }
+
 A::~A() {
 
+}
+
+char A::getType() const {
+  return type;
 }

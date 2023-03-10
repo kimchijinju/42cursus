@@ -22,7 +22,6 @@ Base *Base::generate(void) {
   srand(time(NULL));
   int generate = rand() % 3;
 
-  std::cout << "gen\n";
   switch (generate) {
     case 0 : return new A();
     case 1 : return new B();
@@ -34,19 +33,28 @@ Base *Base::generate(void) {
 void Base::identify(Base *p) {
   A *a = dynamic_cast<A *>(p);
   if (a != NULL)
-    std::cout << "A\n";
+    std::cout << a->getType() << '\n';
   B *b = dynamic_cast<B *>(p);
   if (b != NULL)
-    std::cout << "B\n";
+    std::cout << b->getType() << '\n';
   C *c = dynamic_cast<C *>(p);
   if (c != NULL)
-    std::cout << "C\n";
+    std::cout << c->getType() << '\n';
 }
 
 void Base::identify(Base &p) {
-  (void) p;
-//  A& a = dynamic_cast<A&>(p);
-//  B& b = dynamic_cast<B&>(p);
-//  C& c = dynamic_cast<C&>(p);
+  try {
+    A &a = dynamic_cast<A &>(p);
+    std::cout << a.getType() << '\n';
+  } catch (std::exception &e) {}
 
+  try {
+    B &b = dynamic_cast<B &>(p);
+    std::cout << b.getType() << '\n';
+  } catch (std::exception &e) {}
+
+  try {
+    C &c = dynamic_cast<C &>(p);
+    std::cout << c.getType() << '\n';
+  } catch (std::exception &e) {}
 }
