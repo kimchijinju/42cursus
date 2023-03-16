@@ -2,9 +2,11 @@
 // Created by Hanbin Kim on 3/15/23.
 //
 #include <iostream>
-#include <Array.hpp>
+#include "Array.hpp"
 
 #define MAX_VAL 750
+
+//std::cout << "<a:" << numbers[i] << "> <b:" << mirror[i] << ">\n\n";
 
 int main(int, char **) {
   Array<int> numbers(MAX_VAL);
