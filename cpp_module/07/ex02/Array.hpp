@@ -25,8 +25,8 @@ class Array {
       return *this;
     }
     delete value_;
-    value_ = new T[size_];
     size_ = array.size_;
+    value_ = new T[size_];
     for (unsigned int i = 0; i < size_; ++i) {
       value_[i] = array.value_[i];
     }

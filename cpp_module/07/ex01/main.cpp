@@ -5,7 +5,7 @@
 #include <iostream>
 #include "iter.hpp"
 
-void myPrint(int n) {
+void myPrint(int &n) {
   std::cout << n << '\n';
 }
 
