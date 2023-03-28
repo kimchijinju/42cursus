@@ -37,9 +37,9 @@ int Span::shortestSpan() const
   std::sort(v.begin(), v.end());
 
   int min = INT_MAX;
-  for (vector<int>::iterator it = v.begin(); it != storage_.end(); ++it)
+  for (vector<int>::const_iterator it = v.begin(); it != storage_.end(); ++it)
   {
-    vector<int>::iterator next = it + 1;
+    vector<int>::const_iterator next = it + 1;
     if (next == v.end())
       break ;
     int distance = *next - *it;
@@ -60,7 +60,7 @@ void Span::printStorage() const
 {
   std::vector<int> v(storage_);
 
-  for (std::vector<int>::iterator it = v.begin(); it != v.end(); ++it)
+  for (std::vector<int>::const_iterator it = v.begin(); it != v.end(); ++it)
   {
     std::cout << *it << " ";
   }

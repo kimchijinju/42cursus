@@ -22,6 +22,17 @@ class Span
   template <typename InputIterator>
   void addNumber(InputIterator begin, InputIterator end)
   {
+    InputIterator begin_copy = begin;
+    InputIterator end_copy = end;
+    unsigned int range = 0;
+    while (begin_copy != end_copy)
+    {
+      ++begin_copy;
+      ++range;
+    }
+    if (size_ - storage_.size() < range)
+      throw std::out_of_range("Span : Check range.");
+
     while (begin != end)
     {
       storage_.push_back(*begin);

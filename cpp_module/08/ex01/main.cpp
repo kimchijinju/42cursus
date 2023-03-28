@@ -3,13 +3,17 @@
 #include <iostream>
 #include "Span.hpp"
 
+
 int main()
 {
   vector<int> generate;
-  for (int i = 0; i < 100; ++i)
-    generate.push_back(i);
+  srand(time(NULL));
+  for (int i = 0; i < 10; ++i)
+  {
+    generate.push_back(rand() % 100);
+  }
 
-  Span span(10);
+  Span span(100);
   span.addNumber(7);
   span.addNumber(5);
   span.addNumber(3);
