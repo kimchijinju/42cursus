@@ -2,6 +2,7 @@
 // Created by Hanbin Kim on 3/23/23.
 //
 
+#include <iostream>
 #include "MutantStack.hpp"
 
 int main()

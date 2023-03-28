@@ -12,67 +12,42 @@ template<typename T>
 class MutantStack : public std::stack<T>
 {
  public:
-  class iterator : public std::iterator<std::input_iterator_tag, T>
-  {
-   public:
-    iterator(const iterator &iterator) : ptr_(iterator.ptr_) {}
-    iterator(T *ptr) : ptr_(ptr) {}
-    iterator &operator++()
-    {
-      ++ptr_;
-      return *this;
-    }
-    iterator operator++(int)
-    {
-      iterator ret = *this;
-      ++ptr_;
-      return ret;
-    }
-    iterator &operator--()
-    {
-      --ptr_;
-      return *this;
-    }
-    iterator operator--(int)
-    {
-      iterator ret = *this;
-      --ptr_;
-      return ret;
-    }
-    bool operator==(const iterator &rhs) const
-    {
-      return ptr_ == rhs.ptr_;
-    }
-    bool operator!=(const iterator &rhs) const
-    {
-      return ptr_ != rhs.ptr_;
-    }
-    T &operator*() { return *ptr_; }
-    ~iterator() {}
-   private:
-    T *ptr_;
-    // not use
-    iterator();
-    iterator &operator=(const iterator &iterator);
-  };
+  typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+  typedef typename std::stack<T>::container_type::iterator iterator;
 
-  iterator &begin()
+  const_iterator begin() const
   {
-    return std::stack<T>::container_type.begin();
+    return this->c.begin();
   }
 
-  iterator &end()
+  const_iterator end() const
   {
-    return std::stack<T>::container_type::end();
-  };
+    return this->c.end();
+  }
+
+  iterator begin()
+  {
+    return this->c.begin();
+  }
+
+  iterator end()
+  {
+    return this->c.end();
+  }
+
   MutantStack() {}
   ~MutantStack() {}
+  MutantStack(const MutantStack &mutantStack) : std::stack<T>(mutantStack) {}
+  MutantStack &operator=(const MutantStack &mutantStack)
+  {
+    if (this == &mutantStack)
+    {
+      return *this;
+    }
 
- private:
-  MutantStack(const MutantStack &mutantStack);
-  MutantStack &operator= (const MutantStack &mutantStack);
-
-
+    std::stack<T>::operator=(mutantStack);
+    return *this;
+  }
 };
 
 #endif //INC_08_EX02_MUTANTSTACK_HPP_
