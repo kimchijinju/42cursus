@@ -6,9 +6,12 @@ RUN mariadb-install-db --datadir=/var/lib/mysql && chown -R mysql:mysql /var/lib
 
 RUN rc-status && touch /run/openrc/softlevel && rc-service mariadb start
 
-COPY database_init.sql /docker-entrypoint-initdb.d/
-RUN chmod -R 777 /docker-entrypoint-initdb.d
+WORKDIR /workspace
+COPY tools/database_init.sql /workspace
+COPY tools/init.sh /workspace
 
 EXPOSE 3306
 
-CMD ["mariadbd", "--user=root"]
+CMD ["mariadbd", "-u", "root"]
+ENTRYPOINT ["sh", "init.sh"]
+#CMD ["tail", "-f"]

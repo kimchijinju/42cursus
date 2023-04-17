@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:v1
+    build:
+      context: ./requirement/mariadb
+      dockerfile: Dockerfile
+    restart: always
+      #volume:
+      #- DB:/var/lib/mysql
+    networks:
+      - wordpress_mariadb
+
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    image: wordpress:v1
+    build:
+      context: ./requirement/wordpress
+      dockerfile: Dockerfile
+    restart: always
+      # volume:
+      #- WordPress:/var/www/wordpress
+    networks:
+      - nginx_wordpress
+      - wordpress_mariadb
+
+  nginx:
+    container_name: nginx
+    depends_on:
+      - mariadb
+      - wordpress
+    image: nginx:v1
+    build:
+      context: ./requirement/nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "443:443"
+    networks:
+      - nginx_wordpress
+
+        #volumes:
+        #  DB:
+        #  WordPress:
+        #
+networks:
+  nginx_wordpress:
+  wordpress_mariadb:
+
+# secrets:
+
+
+# configs:
