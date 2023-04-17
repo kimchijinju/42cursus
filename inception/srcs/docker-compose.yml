@@ -8,10 +8,14 @@ services:
       context: ./requirement/mariadb
       dockerfile: Dockerfile
     restart: always
-      #volume:
-      #- DB:/var/lib/mysql
+    volumes:
+      - DB:/var/lib/mysql
     networks:
       - wordpress_mariadb
+    environment:
+      - MARIADB_DATABASE=wordpress
+      - MARIADB_USER=wordpress
+      - MARIADB_PASSWORD=hanbin0127
 
   wordpress:
     container_name: wordpress
@@ -22,8 +26,8 @@ services:
       context: ./requirement/wordpress
       dockerfile: Dockerfile
     restart: always
-      # volume:
-      #- WordPress:/var/www/wordpress
+    volumes:
+      - WordPress:/var/www/wordpress
     networks:
       - nginx_wordpress
       - wordpress_mariadb
@@ -38,15 +42,17 @@ services:
       context: ./requirement/nginx
       dockerfile: Dockerfile
     restart: always
+    volumes:
+      - WordPress:/var/www
     ports:
       - "443:443"
     networks:
       - nginx_wordpress
 
-        #volumes:
-        #  DB:
-        #  WordPress:
-        #
+volumes:
+  DB:
+  WordPress:
+        
 networks:
   nginx_wordpress:
   wordpress_mariadb:
