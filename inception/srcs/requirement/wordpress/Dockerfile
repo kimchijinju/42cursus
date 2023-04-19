@@ -1,6 +1,6 @@
 FROM alpine:3.16
 
-RUN apk update && apk add php8 php8-common php8-fpm php8-mysqli php8-phar wget mariadb-client && addgroup -S nginx && adduser -S nginx -G nginx
+RUN apk update && apk add php8 php8-common php8-fpm php8-mysqli php8-phar php8-mbstring wget mariadb-client && addgroup -S nginx && adduser -S nginx -G nginx
 
 RUN mkdir -p /var/www/ && chown -R nginx:nginx /var/www
 

@@ -9,10 +9,11 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - DB:/var/lib/mysql
+      - /data/db:/var/lib/mysql
     networks:
       - my_service
     environment:
+      - MARIADB_ROOT_PASSWORD=kim0127
       - MARIADB_DATABASE=wordpress
       - MARIADB_USER=wordpress
       - MARIADB_PASSWORD=hanbin0127
@@ -27,7 +28,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - WordPress:/var/www/wordpress
+      - /data/wordpress:/var/www
     networks:
       - my_service
     environment:
@@ -39,7 +40,10 @@ services:
       - WORDPRESS_TITLE=hanbkim
       - WORDPRESS_ADMIN_USER=hanbkim
       - WORDPRESS_ADMIN_PASSWORD=hanbin0127
-      - WORDPRESS_ADMIN_EMAIL=foo@mail.com
+      - WORDPRESS_ADMIN_EMAIL=hanbimkim@gmail.com
+      - WORDPRESS_USER_LOGIN=jaeyyoo
+      - WORDPRESS_USER_PASSWORD=jy0726
+      - WORDPRESS_USER_EMAIL=jaeyyoo@wordpress.com
 
   nginx:
     container_name: nginx
@@ -52,15 +56,13 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - WordPress:/var/www
+      - /data/wordpress:/var/www
     ports:
       - "443:443"
     networks:
       - my_service
 
 volumes:
-  DB:
-  WordPress:
         
 networks:
   my_service:
