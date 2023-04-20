@@ -1,14 +1,18 @@
 #!/bin/sh
 
-mkdir -p /run/mysqld
-chown -R mysql:mysql /run/mysqld
+if [ -d "/run/mysqld" ]; then
+	chown -R mysql:mysql /run/mysqld
+else
+	mkdir -p /run/mysqld
+	chown -R mysql:mysql /run/mysqld
+fi
 
-mariadb-install-db --user=mysql --datadir=/var/lib/mysql
-chown -R mysql:mysql /var/lib/mysql
-chown -R mysql:mysql /etc/my.cnf.d 
-chown mysql:mysql /etc/my.cnf 
-
-mariadbd --user=mysql --bootstrap --skip-networking=0 << eof
+if [ -d /var/lib/mysql/mysql ]; then
+	chown -R mysql:mysql /var/lib/mysql
+else
+	chown -R mysql:mysql /var/lib/mysql
+	mariadb-install-db --user=mysql --datadir=/var/lib/mysql
+	mariadbd --user=mysql --bootstrap --skip-networking=0 << eof
 USE mysql;
 FLUSH PRIVILEGES;
 GRANT ALL ON *.* TO 'root'@'%' identified by '$MARIADB_ROOT_PASSWORD' WITH GRANT OPTION;
@@ -22,4 +26,6 @@ GRANT ALL PRIVILEGES ON $MARIADB_DATABASE.* TO '$MARIADB_USER'@'localhost' IDENT
 FLUSH PRIVILEGES;
 eof
 
-exec mariadbd --user=mysql --console --skip-name-resolve --skip-networking=0
+fi
+
+exec mariadbd --user=mysql --skip-networking=

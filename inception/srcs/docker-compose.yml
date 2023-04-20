@@ -9,14 +9,14 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - /data/db:/var/lib/mysql
+      - ~/container_data/db:/var/lib/mysql
     networks:
       - my_service
     environment:
-      - MARIADB_ROOT_PASSWORD=kim0127
-      - MARIADB_DATABASE=wordpress
-      - MARIADB_USER=wordpress
-      - MARIADB_PASSWORD=hanbin0127
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
 
   wordpress:
     container_name: wordpress
@@ -28,22 +28,22 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - /data/wordpress:/var/www
+      - ~/container_data/wordpress:/var/www
     networks:
       - my_service
     environment:
-      - WORDPRESS_DATABASE_HOST=mariadb:3306
-      - WORDPRESS_DATABASE_NAME=wordpress
-      - WORDPRESS_DATABASE_USER=wordpress
-      - WORDPRESS_DATABASE_PASS=hanbin0127
-      - WORDPRESS_URL=hanbkim.42.fr
-      - WORDPRESS_TITLE=hanbkim
-      - WORDPRESS_ADMIN_USER=hanbkim
-      - WORDPRESS_ADMIN_PASSWORD=hanbin0127
-      - WORDPRESS_ADMIN_EMAIL=hanbimkim@gmail.com
-      - WORDPRESS_USER_LOGIN=jaeyyoo
-      - WORDPRESS_USER_PASSWORD=jy0726
-      - WORDPRESS_USER_EMAIL=jaeyyoo@wordpress.com
+      WORDPRESS_DATABASE_HOST: ${WORDPRESS_DATABASE_HOST}
+      WORDPRESS_DATABASE_NAME: ${WORDPRESS_DATABASE_NAME}
+      WORDPRESS_DATABASE_USER: ${WORDPRESS_DATABASE_USER}
+      WORDPRESS_DATABASE_PASS: ${WORDPRESS_DATABASE_PASS}
+      WORDPRESS_URL: ${WORDPRESS_URL}
+      WORDPRESS_TITLE: ${WORDPRESS_TITLE}
+      WORDPRESS_ADMIN_USER: ${WORDPRESS_ADMIN_USER}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
+      WORDPRESS_USER_LOGIN: ${WORDPRESS_USER_LOGIN}
+      WORDPRESS_USER_PASSWORD: ${WORDPRESS_USER_PASSWORD}
+      WORDPRESS_USER_EMAIL: ${WORDPRESS_USER_EMAIL}
 
   nginx:
     container_name: nginx
@@ -56,18 +56,11 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - /data/wordpress:/var/www
+      - ~/container_data/wordpress:/var/www
     ports:
       - "443:443"
     networks:
       - my_service
 
-volumes:
-        
 networks:
   my_service:
-
-# secrets:
-
-
-# configs:
