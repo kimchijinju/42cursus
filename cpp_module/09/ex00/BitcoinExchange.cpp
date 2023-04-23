@@ -25,7 +25,15 @@ void BitcoinExchange::csvParser(const char *filename)
   std::string line;
   while (std::getline(input, line))
   {
-    bitcoinPriceMap_.insert(split(line, ','));
+    std::pair<std::string, double> priceByDate = split(line, ',');
+//  struct tm tm;
+//    memset(&tm, 0, sizeof(struct tm));
+//    strptime(priceByDate.first.c_str(), "%YYYY-%mm-%dd", &tm);
+//    printf("%d/%d/%d %d:%d:%d\n",tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday,
+//           tm.tm_hour, tm.tm_min, tm.tm_sec);
+//    std::pair<struct tm, double> priceByTime =
+
+    bitcoinPriceMap_.insert(priceByDate);
   }
 }
 
@@ -60,11 +68,12 @@ std::pair<std::string, double> BitcoinExchange::split(std::string line, char sep
     return std::make_pair("", -1.0);
 
   std::string date(line.substr(0, separate_point));
+  date.erase(std::remove(date.begin(), date.end(), ' '), date.end());
   line.erase(line.begin(), line.begin() + separate_point + 1);
 
   char *endptr;
   double value = strtod(line.c_str(), &endptr);
-  if (line.empty() || endptr != NULL)
+  if (line.empty() || *endptr != '\0')
     return std::make_pair("", -1.0);
 
   return std::make_pair(date, value);
@@ -85,7 +94,12 @@ bool BitcoinExchange::isValidLine(std::pair<std::string, double> numberByDate, s
     std::cout << "Error: bad date format.\n";
     return false;
   }
-  if (bitcoinCount < 0.0 || bitcoinCount > 1000.0)
+  if (bitcoinCount < 0.0)
+  {
+    std::cout << "Error: too small a number. => " << line << '\n';
+    return false;
+  }
+  if (bitcoinCount > 1000.0)
   {
     std::cout << "Error: too large a number. => " << line << '\n';
     return false;
