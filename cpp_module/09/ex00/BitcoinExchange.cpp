@@ -23,17 +23,14 @@ void BitcoinExchange::csvParser(const char *filename)
   }
 
   std::string line;
+  getline(input, line);
+
   while (std::getline(input, line))
   {
     std::pair<std::string, double> priceByDate = split(line, ',');
-//  struct tm tm;
-//    memset(&tm, 0, sizeof(struct tm));
-//    strptime(priceByDate.first.c_str(), "%YYYY-%mm-%dd", &tm);
-//    printf("%d/%d/%d %d:%d:%d\n",tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday,
-//           tm.tm_hour, tm.tm_min, tm.tm_sec);
-//    std::pair<struct tm, double> priceByTime =
-
-    bitcoinPriceMap_.insert(priceByDate);
+    time_t time = getTime(priceByDate.first);
+    std::pair<time_t, double> priceByTime = std::make_pair(time, priceByDate.second);
+    bitcoinPriceMap_.insert(priceByTime);
   }
 }
 
@@ -47,17 +44,28 @@ void BitcoinExchange::inputParser(const char *filename)
     exit(1);
   }
 
+  std::string header;
+  getline(input, header);
+  if (header != "date | value")
+  {
+    std::cout << "Error: incorrect file format.\n";
+    exit(1);
+  }
+
   std::string line;
+  char buf[11];
   while (std::getline(input, line))
   {
     std::pair<std::string, double> numberByDate = split(line, '|');
     if (!isValidLine(numberByDate, line))
       continue;
-    std::string &date = numberByDate.first;
-    double &number = numberByDate.second;
-    double price = bitcoinPriceMap_.lower_bound(date)->second;
+    time_t time = getTime(numberByDate.first);
+    double number = numberByDate.second;
+    double price = (--bitcoinPriceMap_.lower_bound(time))->second;
 
-    std::cout << date << " => " << number << " = " << number * price << '\n';
+    struct tm *t = localtime(&time);
+    strftime(buf, sizeof(buf), "%Y-%m-%d", t);
+    std::cout << buf << " => " << number << " = " << number * price << '\n';
   }
 }
 
@@ -121,4 +129,12 @@ bool BitcoinExchange::isValidDate(std::string &date)
   if (!(isdigit(date[8]) && isdigit(date[9])))
     return false;
   return true;
+}
+
+time_t BitcoinExchange::getTime(std::string date)
+{
+  struct tm tm;
+  memset(&tm, 0, sizeof(struct tm));
+  strptime(date.c_str(), "%Y-%m-%d", &tm);
+  return mktime(&tm);
 }
