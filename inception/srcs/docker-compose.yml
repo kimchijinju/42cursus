@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - ~/container_data/db:/var/lib/mysql
+      - db_data:/var/lib/mysql
     networks:
       - my_service
     environment:
@@ -28,7 +28,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - ~/container_data/wordpress:/var/www
+      - wordpress_data:/var/www
     networks:
       - my_service
     environment:
@@ -56,7 +56,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - ~/container_data/wordpress:/var/www
+      - wordpress_data:/var/www
     ports:
       - "443:443"
     networks:
@@ -64,3 +64,17 @@ services:
 
 networks:
   my_service:
+
+volumes:
+  db_data:
+    driver: local
+    driver_opts:
+      type: volume
+      device: "/home/hanbkim/data/mariadb"
+      o: bind
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: volume
+      device: "/home/hanbkim/data/wordpress"
+      o: bind

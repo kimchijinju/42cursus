@@ -14,5 +14,4 @@ if ! wp core is-installed; then
 fi
 
 echo "Fast-cgi now running."
-exec php-fpm8 -F
-
+exec php-fpm81 -F

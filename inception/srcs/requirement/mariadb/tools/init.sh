@@ -28,4 +28,4 @@ eof
 
 fi
 
-exec mariadbd --user=mysql --skip-networking=
+exec mariadbd --user=mysql --skip-networking=0
